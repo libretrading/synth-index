@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 st.title("Indice Sintetico (€) – dal 16 aprile 2025 a oggi")
 
 # 1) Date: start sempre fisso al 2025‑04‑16, end a oggi
-start = datetime(2025, 4, 16)
+start = datetime(2024, 4, 16)
 end   = datetime.today()
 start_str = start.strftime('%Y-%m-%d')
 end_str   = end.strftime('%Y-%m-%d')
