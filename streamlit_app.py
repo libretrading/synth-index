@@ -80,6 +80,5 @@ tbl = ax2.table(
     loc='center'
 )
 tbl.auto_set_font_size(False); tbl.set_fontsize(10); tbl.scale(1,1.5)
-ax2.set_title("Allocazione Inizio/Fine")
 
 st.pyplot(fig)
