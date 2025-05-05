@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 
 st.title("Indice Sintetico (€) – dal 16 aprile 2025 a oggi")
 
-# 1) Date: start fisso 2025‑04‑16, end a oggi
+# 1) Date: start fisso 2025-04-16, end a oggi
 start = datetime(2025, 4, 16)
 end   = datetime.today()
 start_str = start.strftime('%Y-%m-%d')
@@ -51,12 +51,17 @@ idx_ret = sum(init_frac[t] * rets[t] for t in raw_weights)  # cash=0
 idx_level = (1 + idx_ret).cumprod() * 100
 
 # 7) Calcolo pesi finali
-start_prices = price_eur.loc[start_str]
+# Prende il primo prezzo disponibile >= start
+start_prices = price_eur[price_eur.index >= start].iloc[0]
 end_prices   = price_eur.iloc[-1]
-value_end = {t: init_frac[t] * (end_prices[t]/start_prices[t]) for t in raw_weights}
+
+value_end = {
+    t: init_frac[t] * (end_prices[t] / start_prices[t])
+    for t in raw_weights
+}
 value_end['CASH'] = init_frac['CASH']
 tot_end = sum(value_end.values())
-end_frac = {t: v/tot_end for t, v in value_end.items()}
+end_frac = {t: v / tot_end for t, v in value_end.items()}
 
 # 8) % change da inizio a fine periodo
 pct_change = (idx_level.iloc[-1] / idx_level.iloc[0] - 1) * 100
